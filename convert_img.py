@@ -29,6 +29,7 @@ def get_list_of_md_files():
 
     return list_of_files
 
+# Quick search for file extention
 def find_image_extention(filename, search_path=".\\resources"):
     for root, dir, files in os.walk(search_path):
         if (filename + ".png") in files:
@@ -40,7 +41,7 @@ def find_image_extention(filename, search_path=".\\resources"):
         elif (filename + ".svg") in files:
             return  ".svg"         
         elif (filename + ".gif") in files:
-            return ".git" 
+            return ".gif" 
     #default return .jpg
     return ".jpg"
 
