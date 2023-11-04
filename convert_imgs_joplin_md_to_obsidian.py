@@ -13,6 +13,7 @@ file_encoding = 'windows-1256'
 
 file_counter = 1
 
+total_changes_per_run = 0
 
 def get_list_of_md_files(obsidian_vault_folder_path):
 
@@ -37,7 +38,7 @@ def convert_img_to_md(line):
     return line
 
 def clean_image_link_in_markdown(file_name):
-    global file_counter, file_encoding
+    global file_counter, file_encoding, total_changes_per_run
     # Open the file
     file_input = open(file_name, encoding=file_encoding)
     # file_input = open(file_name).readlines()
@@ -50,7 +51,10 @@ def clean_image_link_in_markdown(file_name):
         file_output += output_line
         if output_line != line:
             counter_of_changes = counter_of_changes + 1
-
+    
+    #adds up all changes done in this run
+    total_changes_per_run += counter_of_changes
+    
     #output file to write the result to
     fout = open(file_name, "wt", encoding=file_encoding)
     fout.writelines(file_output)
@@ -83,3 +87,6 @@ list_of_files = get_list_of_md_files(args.path)
 
 for each_file in list_of_files:
     clean_image_link_in_markdown(each_file)
+
+print("------------ complete --------------")
+print(f"Total Changes: {total_changes_per_run} \n")
