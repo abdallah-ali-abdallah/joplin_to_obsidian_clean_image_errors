@@ -10,9 +10,7 @@ import re
 import argparse
 
 file_encoding = 'windows-1256'
-pattern = "src=\":/"
-prefix_pattern = "![["
-postfix_pattern =  "]]"
+
 file_counter = 1
 
 
@@ -31,22 +29,6 @@ def get_list_of_md_files(obsidian_vault_folder_path):
                 list_of_files.append(os.path.join(r, file))
 
     return list_of_files
-
-# Quick search for file extention
-def find_image_extention(filename, search_path=".\\resources"):
-    for root, dir, files in os.walk(search_path):
-        if (filename + ".png") in files:
-            return  ".png"
-        elif (filename + ".jpg") in files:
-            return  ".jpg"        
-        elif (filename + ".jpeg") in files:
-            return  ".jpeg"         
-        elif (filename + ".svg") in files:
-            return  ".svg"         
-        elif (filename + ".gif") in files:
-            return ".gif" 
-    #default return .jpg
-    return ".jpg"
 
 def convert_img_to_md(line):
     match = re.search(r'<img .*?src="([^"]*)".*?>', line)
