@@ -15,15 +15,13 @@ file_counter = 1
 
 
 def get_list_of_md_files(obsidian_vault_folder_path):
-    # Getting the current work directory (cwd)
-    thisdir = obsidian_vault_folder_path
 
     # list of all markdown files
     list_of_files = []
 
     # Get a list of all markdown files inside current directory
     # r=root, d=directories, f = files
-    for r, d, f in os.walk(thisdir):
+    for r, d, f in os.walk(obsidian_vault_folder_path):
         for file in f:
             if file.endswith(".md"):    # match only (*.md) files 
                 list_of_files.append(os.path.join(r, file))
@@ -48,8 +46,10 @@ def clean_image_link_in_markdown(file_name):
 
     # search for each line contain the pattern and replace the image path
     for line in file_input:
-        convert_img_to_md(line)
-        file_output += line
+        output_line = convert_img_to_md(line)
+        file_output += output_line
+        if output_line != line:
+            counter_of_changes = counter_of_changes + 1
 
     #output file to write the result to
     fout = open(file_name, "wt", encoding=file_encoding)
